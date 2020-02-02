@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" value="{{$etude->date}}" class="form-control" id="date" name="date" placeholder="Date">
+                    <input required="" type="text" value="{{$etude->date}}" class="form-control" id="dateP" name="dateP" placeholder="Date">
                   </div>
 
                    <div class="form-group">

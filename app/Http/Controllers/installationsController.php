@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Installations;
+use App\Equipe;
+use Auth;
+use Session;
 
 class installationsController extends Controller
 {
@@ -13,7 +18,12 @@ class installationsController extends Controller
      */
     public function index()
     {
-        //
+         $etat = 'liste';
+        $installations = Installations::all();
+        $equipes = Equipe::all();
+         return view('installations/index')->with([
+            'installations' => $installations,'equipes' => $equipes,'etat' => $etat
+        ]);
     }
 
     /**
