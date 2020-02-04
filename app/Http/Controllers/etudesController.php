@@ -31,9 +31,17 @@ class etudesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        DB::table('etudes')->insert(['libelle' => $request->get('nom'),
+        'type' => $request->get('type'),
+        'date' => $request->get('date'),
+        'equipe_id' => $request->get('equipe'),
+        ]);
+
+            toastr()->success('L\'Etude a été crée avec succès!');
+
+            return redirect()->route('etudes.index');
     }
 
     /**
@@ -66,7 +74,12 @@ class etudesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $etat = 'editer';
+        $etude = Etudes::with('equipe')->findOrFail($id);
+        $etudes = Etudes::with('equipe')->get();
+        $equipes = Equipe::all();
+
+        return view('etudes/index')->with(['etude' => $etude, 'etudes' => $etudes,'equipes' => $equipes, 'etat' => $etat ]);
     }
 
     /**
@@ -78,7 +91,17 @@ class etudesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         DB::table('etudes')
+        ->where('id', $id)
+        ->update(['libelle' => $request->get('nom'),
+                    'type' => $request->get('type'),
+                    'date' => $request->get('date'),
+                    'equipe_id' => $request->get('equipe')
+                ]);
+
+    toastr()->success('Etude modifiée avec succès!');
+
+    return redirect()->route('etudes.index');
     }
 
     /**
@@ -89,6 +112,14 @@ class etudesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = DB::table('etudes')->where('id', '=', $id)->delete();
+
+        if($delete == true){
+            toastr()->warning('Suppression effectuée avec succes!');
+            return redirect()->route('etudes.index');
+        }else{
+          toastr()->error('Erreur lors de la suppression!');
+            return redirect()->route('etudes.index');
+        }
     }
 }

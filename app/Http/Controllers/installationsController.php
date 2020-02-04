@@ -31,9 +31,17 @@ class installationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+     public function create(Request $request)
     {
-        //
+       DB::table('installations')->insert(['libelle' => $request->get('libelle'),
+        'numero' => $request->get('numero'),
+        'date' => $request->get('date'),
+        'equipe_id' => $request->get('equipe'),
+        ]);
+
+            toastr()->success('Installation crée avec succès!');
+
+            return redirect()->route('installations.index');
     }
 
     /**
@@ -66,7 +74,12 @@ class installationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $etat = 'editer';
+        $installation = Installations::with('equipe')->findOrFail($id);
+        $installations = Installations::with('equipe')->get();
+        $equipes = Equipe::all();
+
+        return view('installations/index')->with(['installation' => $installation, 'installations' => $installations,'equipes' => $equipes, 'etat' => $etat ]);
     }
 
     /**
@@ -78,7 +91,17 @@ class installationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         DB::table('installations')
+        ->where('id', $id)
+        ->update(['libelle' => $request->get('libelle'),
+                    'numero' => $request->get('numero'),
+                    'date' => $request->get('date'),
+                    'equipe_id' => $request->get('equipe')
+                ]);
+
+    toastr()->success('Installation modifiée avec succès!');
+
+    return redirect()->route('installations.index');
     }
 
     /**
@@ -89,6 +112,14 @@ class installationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = DB::table('installations')->where('id', '=', $id)->delete();
+
+        if($delete == true){
+            toastr()->warning('Suppression effectuée avec succes!');
+            return redirect()->route('etudes.index');
+        }else{
+          toastr()->error('Erreur lors de la suppression!');
+            return redirect()->route('installations.index');
+        }
     }
 }

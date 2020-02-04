@@ -42,7 +42,7 @@
 
                    <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" value="{{$installation->date}}" class="form-control" id="date" name="date" placeholder="Date">
+                    <input required="" type="date" value="{{$installation->date}}" class="form-control" id="date" name="date" placeholder="Date">
                   </div>
 
                    <div class="form-group">
@@ -60,7 +60,7 @@
                 </div>
              </form>
               @elseif ($etat == 'liste')
-                 <form method="PUT" action="{{route('personnels.create')}}">
+                 <form method="PUT" action="{{route('installations.create')}}">
               
                 {{ csrf_field() }}
                 <div class="card-body">
@@ -84,7 +84,7 @@
 
                    <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" class="form-control" id="date" name="date" placeholder="Date">
+                    <input required="" type="date" class="form-control" id="date" name="date" placeholder="Date">
                   </div>
 
                    <div class="form-group">

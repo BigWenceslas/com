@@ -31,9 +31,17 @@ class resiliationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       DB::table('resiliations')->insert(['numero' => $request->get('numero'),
+        'raison' => $request->get('raison'),
+        'date' => $request->get('date'),
+        'equipe_id' => $request->get('equipe'),
+        ]);
+
+            toastr()->success('Résiliation crée avec succès!');
+
+            return redirect()->route('resiliations.index');
     }
 
     /**
@@ -66,7 +74,12 @@ class resiliationsController extends Controller
      */
     public function edit($id)
     {
-        //
+       $etat = 'editer';
+        $resiliation = Resiliations::with('equipe')->findOrFail($id);
+        $resiliations = Resiliations::with('equipe')->get();
+        $equipes = Equipe::all();
+
+        return view('resiliations/index')->with(['resiliation' => $resiliation, 'resiliations' => $resiliations,'equipes' => $equipes, 'etat' => $etat ]);
     }
 
     /**
@@ -78,7 +91,17 @@ class resiliationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('resiliations')
+        ->where('id', $id)
+        ->update(['numero' => $request->get('numero'),
+                    'raison' => $request->get('raison'),
+                    'date' => $request->get('date'),
+                    'equipe_id' => $request->get('equipe')
+                ]);
+
+    toastr()->success('Resiliation modifiée avec succès!');
+
+    return redirect()->route('resiliations.index');
     }
 
     /**
@@ -89,6 +112,14 @@ class resiliationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $delete = DB::table('resiliations')->where('id', '=', $id)->delete();
+
+        if($delete == true){
+            toastr()->warning('Suppression effectuée avec succes!');
+            return redirect()->route('etudes.index');
+        }else{
+          toastr()->error('Erreur lors de la suppression!');
+            return redirect()->route('resiliations.index');
+        }
     }
 }

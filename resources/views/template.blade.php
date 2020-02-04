@@ -20,7 +20,7 @@
   <!-- Ionicons -->
  <!--  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
   <!-- daterange picker -->
-  <link rel="stylesheet" href="{!! asset('plugins/daterangepicker/daterangepicker.css') !!}">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.4/css/bootstrap-datetimepicker.min.css" integrity="sha256-Fl1s8EQCc9mKf/njo8mWr0MPJR8TnOQb0h0rmVKRoP8=" crossorigin="anonymous" />
 
   @toastr_css
 </head>
@@ -256,7 +256,7 @@
 <script src="{!! asset('plugins/moment/moment.min.js') !!}"></script>
 <script src="{!! asset('plugins/inputmask/min/jquery.inputmask.bundle.min.js') !!}"></script>
 <!-- date-range-picker -->
-<script src="{!! asset('plugins/daterangepicker/daterangepicker.js') !!}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.4/js/bootstrap-datetimepicker.min.js" integrity="sha256-sU6nRhzXDAC31Wdrirz7X2A2rSRWj10WnP9CA3vpYKw=" crossorigin="anonymous"></script>
 <!-- bootstrap color picker -->
 <script src="{!! asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') !!}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
@@ -282,13 +282,7 @@
     });
   });
 
- $('#dateP').daterangepicker({
-      timePicker: false,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY'
-      }
-    });
+ $('#date').datetimepicker();
   
 </script>
 

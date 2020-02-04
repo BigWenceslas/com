@@ -16,6 +16,7 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Formulaire d'enregistrement des Etudes</h3>
+
               </div>
                  @if ($etat == 'editer')
                {!! Form::open(['route' => ['etudes.update', $etude->id], 'method' => 'put', 'role' => 'form', 'files' => true]) !!}
@@ -38,20 +39,23 @@
                   <div class="form-group">
                     <label for="prenom">Type</label>
                     <select name="type" id="type" class="form-control">
-                        <option value="">  </option>
+                        <option selected="selected" value="{{$etude->equipe->id}}">{{$etude->equipe->libelle}}</option>
+                        <option value="Type1">LS</option>
+                        <option value="Type2">ADSL</option>
+                        <option value="Type3">FTTH</option>
                     </select>
                   </div>
 
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" value="{{$etude->date}}" class="form-control" id="dateP" name="dateP" placeholder="Date">
+                    <input required="" type="date" value="{{$etude->date}}" class="form-control" id="date" name="date" placeholder="Date">
                   </div>
 
                    <div class="form-group">
                     <label for="prenom">Equipe</label>
                     <select name="equipe" id="equipe" class="form-control">
                        @foreach($equipes as $d)
-                        <option @if($etudes->equipe->id == $d->id) selected @endif value="{{ $d->id }}">{{ $d->libelle }}</option>
+                        <option @if($etude->equipe->id == $d->id) selected @endif value="{{ $d->id }}">{{ $d->libelle }}</option>
                         @endforeach
                     </select>
                   </div>
@@ -91,7 +95,7 @@
 
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" class="form-control" id="date" name="date" placeholder="Date">
+                    <input required="" type="date" class="form-control" id="date" name="date" placeholder="Date">
                   </div>
 
                    <div class="form-group">

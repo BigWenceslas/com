@@ -43,7 +43,7 @@
 
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" value="{{$resiliation->date}}" class="form-control" id="date" name="date" placeholder="Date">
+                    <input required="" type="date" value="{{$resiliation->date}}" class="form-control" id="date" name="date" placeholder="Date">
                   </div>
 
                    <div class="form-group">
@@ -87,7 +87,7 @@
 
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input required="" type="text" class="form-control" id="date" name="date" placeholder="Date">
+                    <input required="" type="date" class="form-control" id="date" name="date" placeholder="Date">
                   </div>
 
 
